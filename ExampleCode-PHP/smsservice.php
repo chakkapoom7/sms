@@ -9,8 +9,10 @@
 	$force = $_REQUEST['force'];
 	
 	$result = sms::send_sms($username,$password,$msisdn,$message,$sender,$ScheduledDelivery,$force);
-	echo $result,"<br>";
-	
-    $result2 = sms::check_credit($username,$password,$force);
-	print_r ($result2);
+	echo "<pre>";
+	print_r($result);
+	echo "</pre>";
+
+    // $result2 = sms::check_credit($username,$password,$force);
+	// print_r ($result2);
 ?>

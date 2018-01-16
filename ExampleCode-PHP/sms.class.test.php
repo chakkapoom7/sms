@@ -91,10 +91,17 @@ class sms{
 				$msg_string = "cURL OR fsockopen is not enabled";
 			}
 		}
-		echo "<pre>";
-		print_r($sms);
-		echo "</pre>";
-		return $msg_string;
+
+
+
+		$myresult = json_decode(json_encode((array)$sms), TRUE);
+		$myresult['sumary'] = $msg_string;
+
+		// echo "<pre>";
+		// print_r($sms);
+		// echo "</pre>";
+		// return $msg_string;
+		return $myresult;
 	}
 	
 	function check_credit($username,$password,$credit_type = "credit_remain"){
@@ -406,5 +413,6 @@ class sms{
 		unset($tmp);
 		return $str;
 	}
+
 }
 ?>
