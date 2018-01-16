@@ -92,10 +92,8 @@ class sms{
 			}
 		}
 
-
-
 		$myresult = json_decode(json_encode((array)$sms), TRUE);
-		$myresult['sumary'] = $msg_string;
+		$myresult['summary'] = $msg_string;
 
 		// echo "<pre>";
 		// print_r($sms);

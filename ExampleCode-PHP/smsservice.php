@@ -13,6 +13,6 @@
 	print_r($result);
 	echo "</pre>";
 
-    // $result2 = sms::check_credit($username,$password,$force);
-	// print_r ($result2);
+	// echo json_encode($result);
+
 ?>
