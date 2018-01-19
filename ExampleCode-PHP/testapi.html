@@ -7,16 +7,9 @@
 <body>
 <h2>Test Send SMS</h2>
 <form id="send_sms" name="send_sms" method="post" action="smsservice.php">
-
-Credit Type<br/>
-
-    <select id="force" name="force">
-        <option value="standard" selected="selected">Standard</option>
-        <option value="premium">Premium</option>
-    </select><br/>
-    
+  
     Phone Number<br/>
-    <input type="text" id="msisdn" name="msisdn" value="" /><br/>
+    <input type="text" id="number" name="number" value="" /><br/>
 
     Message<br/>
     <textarea id="message" name="message"></textarea><br/>
@@ -26,6 +19,7 @@ Credit Type<br/>
     *  1207011545 (ปีเดือนวันชั่วโมงนาที)<br/>
 
     <input type="submit" value="Send Now"/> <input type="reset" value="Reset" />
+    
 </form>
 </body>
 </html>
