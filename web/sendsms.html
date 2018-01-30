@@ -4,57 +4,35 @@
     <title>test send sms</title>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
     <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript" src="js/sendsms.js"></script>
+<link rel="stylesheet" href="css/sendsms.css">
+
 </head>
 
 <body>
     <h2>Send SMS</h2>
     <form id="send_sms" name="send_sms" method="post" action="../service/presend.php">
-
-        <!--     
-    Phone Number<br/>
-    <input type="text" id="number" name="number" value="" /><br/>
-
-    Message<br/>
-    <textarea id="message" name="message"></textarea><br/>
-    
-    ScheduledDelivery<br/>
-    <input type="text" id="ScheduledDelivery" name="ScheduledDelivery" value="" /> 
-    *  1207011545 (ปีเดือนวันชั่วโมงนาที)<br/>
-
-    <input type="submit" value="Send Now"/> <input type="reset" value="Reset" /> 
-    -->
-
         <table>
             <tr>
-                <td>
-                    เบอร์โทรศัพท์ :
-                </td>
+                <td>เบอร์โทรศัพท์ :</td>
                 <td></td>
-                <td>
-                    <input type="tel" name="phone" id="phone">
-                </td>
+                <td><input type="tel" name="phone" id="phone"></td>
             </tr>
 
             <tr>
-                <td>
-                    เบอร์แบบกลุ่ม :
-                </td>
+                <td>เบอร์แบบกลุ่ม :</td>
                 <td></td>
-                <td>
-                    <select name="group" id="group">
+                <td><select name="group" id="group">
                         <option value="all">ทั้งหมด</option>
                         <option value="na">NA</option>
                         <option value="tt">TT</option>
                         <option value="ws">WS</option>
                         <option value="new">New Customer ( 1 month )</option>
-                    </select>
-                </td>
+                    </select></td>
             </tr>
 
             <tr>
-                <td>
-                    ข้อความ :
-                </td>
+                <td>ข้อความ :</td>
                 <td></td>
                 <td>
                     <textarea name="message" id="message" cols="30" rows="10"></textarea>
@@ -63,21 +41,13 @@
                 <td>
                     <table>
                         <tr>
-                            <div id="status">
-
-                            </div>
+                        <div id="status"></div>
                         </tr>
                         <tr>
-                            <td>
-                                ข้อความ dynamic 1
-                            </td>
-                            <td>
-                                <input type="text" name="rep_str1" id="rep_str1">
-                            </td>
+                            <td>ข้อความ dynamic 1</td>
+                            <td><input type="text" name="rep_str1" id="rep_str1"></td>
                             <td></td>
-                            <td>
-                                ข้อมูลแทน dynamic 1
-                            </td>
+                            <td>ข้อมูลแทน dynamic 1</td>
                             <td>
                                 <select name="rep_feild1" id="rep_feild1">
                                     <option value="1">1</option>
@@ -86,16 +56,10 @@
                         </tr>
 
                         <tr>
-                            <td>
-                                ข้อความ dynamic 2
-                            </td>
-                            <td>
-                                <input type="text" name="rep_str2" id="rep_str2">
-                            </td>
+                            <td>ข้อความ dynamic 2</td>
+                            <td><input type="text" name="rep_str2" id="rep_str2"></td>
                             <td></td>
-                            <td>
-                                ข้อมูลแทน dynamic 2
-                            </td>
+                            <td>ข้อมูลแทน dynamic 2</td>
                             <td>
                                 <select name="rep_feild2" id="rep_feild2">
                                     <option value="1">1</option>
@@ -104,16 +68,12 @@
                         </tr>
 
                         <tr>
-                            <td>
-                                ข้อความ dynamic 3
-                            </td>
+                            <td>ข้อความ dynamic 3</td>
                             <td>
                                 <input type="text" name="rep_str3" id="rep_str3">
                             </td>
                             <td></td>
-                            <td>
-                                ข้อมูลแทน dynamic 3
-                            </td>
+                            <td>ข้อมูลแทน dynamic 3</td>
                             <td>
                                 <select name="rep_feild3" id="rep_feild3">
                                     <option value="1">1</option>
@@ -125,9 +85,7 @@
             </tr>
 
             <tr>
-                <td>
-                    รูปแบบการส่ง :
-                </td>
+                <td>รูปแบบการส่ง :</td>
                 <td></td>
                 <td>
                     <select name="type" id="type">
@@ -157,11 +115,8 @@
                 </td>
             </tr>
 
-
             <tr>
-                <td>
-                    ชื่อผู้ส่ง :
-                </td>
+                <td>ชื่อผู้ส่ง :</td>
                 <td></td>
                 <td>
                     <select name="s_name" id="s_name">
@@ -171,65 +126,11 @@
                 </td>
             </tr>
             <tr>
-                <td>
-                    <button type="submit">ส่ง</button>
-                </td>
+                <td><button type="submit">ส่ง</button></td>
             </tr>
 
         </table>
-
-
-
     </form>
-
-
-
-
-    <script type="text/javascript">
-
-        // $(function () {
-        //     var delayID = null;
-        //     $("#message").keyup(function (event) {
-        //         if (delayID == null) {
-        //             delayID = setTimeout(function () {
-        //                 var input_data = $("#message").val();
-        //                 // alert(input_data);
-        //                 show_count(input_data.length);
-        //                 delayID = null;
-        //             }, 700);
-        //         } else {
-        //             if (delayID) {
-        //                 clearTimeout(delayID);
-        //                 delayID = setTimeout(function () {
-        //                     var input_data = $("#message").val();
-        //                     // alert(input_data);
-        //                     show_count(input_data.length);
-        //                     delayID = null;
-        //                 }, 700);
-        //             }
-        //         }
-        //     });
-        // });
-
-
-        $(function () {
-            var delayID = null;
-            $("#message").on("keyup", function (event) {
-                if (delayID) { clearTimeout(delayID); }
-                delayID = setTimeout(function () {
-                    var input_data = $("#message").val();
-                    show_count(input_data.length); // ทำคำสั่งที่ต้องการ
-                    delayID = null;
-                }, 3000);
-            });
-        });
-
-        function show_count(n) {
-            document.getElementById("status").innerHTML = n + " / 160";
-        }
-    </script>
-
-
 </body>
 
 </html>
