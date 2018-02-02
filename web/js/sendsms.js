@@ -9,7 +9,8 @@ $(function () {
     });
 });
 
-function show_count() {
+
+function count_smstext() {
     var lang ;
     var input_data = $("#message").val();
     var english = /^[A-Za-z0-9]*$/;
@@ -18,5 +19,12 @@ function show_count() {
     }else{
         lang = 'other';
     }
-    document.getElementById("status").innerHTML =  lang + " " + input_data.length + " / 160";
+    
+    return input_data.length;
 }
+
+
+function show_count() {
+    document.getElementById("status").innerHTML =  lang + " " + count_smstext() + " / 160";
+}
+
