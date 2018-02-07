@@ -10,10 +10,9 @@ $(function () {
 });
 
 
-function count_smstext() {
-    var lang ;
-    var input_data = $("#message").val();
-    var english = /^[A-Za-z0-9]*$/;
+function count_smstext(text) {
+    let lang ;
+    let english = /^[A-Za-z0-9]*$/;
     if(english.test(input_data){
         lang = 'en';
     }else{
@@ -25,6 +24,6 @@ function count_smstext() {
 
 
 function show_count() {
-    document.getElementById("status").innerHTML =  lang + " " + count_smstext() + " / 160";
+    document.getElementById("status").innerHTML =  lang + " " + count_smstext($("#message").val()) + " / 160";
 }
 

@@ -1,10 +1,10 @@
 <?php
 // connect.php
 $db_config=array(
-    "host"=>"fanta.haadthip.com",  // กำหนด host
-    "user"=>"pcadmin", // กำหนดชื่อ user
-    "pass"=>"pcadmin",   // กำหนดรหัสผ่าน
-    "dbname"=>"MET",  // กำหนดชื่อฐานข้อมูล
+    "host"=>"cola.haadthip.com",  // กำหนด host
+    "user"=>"itadmin", // กำหนดชื่อ user
+    "pass"=>"",   // กำหนดรหัสผ่าน
+    "dbname"=>"sms_test",  // กำหนดชื่อฐานข้อมูล
     "charset"=>"utf8"  // กำหนด charset
 );
 
