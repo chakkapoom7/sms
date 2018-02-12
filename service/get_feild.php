@@ -32,7 +32,7 @@ if(@$total == 0){
 
 
 while ($rs = $result->fetch_object()) {
-    array_push($return_data,$rs->column_name);
+    array_push($return_data,array( "feild" => $rs->column_name));
 }
 
 
