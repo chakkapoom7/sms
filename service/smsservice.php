@@ -4,11 +4,12 @@
 	$password = "thisispassword";
 	$msisdn = $_REQUEST['number'];
 	$message = $_REQUEST['message'];
-	$sender = "SMS";
-	$ScheduledDelivery = $_REQUEST['ScheduledDelivery'];
+	$sender = $_REQUEST['sender'];
+	$ScheduledDelivery = "";
 	$force = "premium";
-	// $force = "standard";
 	
+	$type = $_REQUEST['type'];
+
 	$result = sms::send_sms($username,$password,$msisdn,$message,$sender,$ScheduledDelivery,$force);
 	
 	// echo "<pre>";

@@ -21,7 +21,7 @@ function count_smstext(text) {
 }
 
 function show_count() {
-    document.getElementById("status").innerHTML = lang + " " + count_smstext($("#message").val()) + " / 160";
+    // document.getElementById("status").innerHTML = lang + " " + count_smstext($("#message").val()) + " / 160";
 }
 
 function get_feild() {
@@ -38,13 +38,8 @@ function get_feild() {
                     $('.dd_feild').append(opt_res);
                 });
             }
-            console.log("clear loader");
-            $("#loaderbox").empty();
         },
         error: function (failinfo) {
-            console.log("clear loader"); failinfo
-            console.log(failinfo);
-            $("#loaderbox").empty();
             $("#loaderbox").append("เกิดข้อผิดพลาดบางอย่าง");
         }
     });
@@ -69,3 +64,10 @@ function mode_change(mode) {
 
 $(document).ready(get_feild());
 
+
+function sha_hash(text) {
+    var sha256 = new jsSHA('SHA-256', text);
+    sha256.update(some_string_variable_to_hash);
+    var hash = sha256.getHash("HEX");
+    return hash;
+}

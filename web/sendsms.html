@@ -13,7 +13,7 @@
 
 <body>
     <h2>Send SMS</h2>
-    <form id="send_sms" name="send_sms" method="post" action="../service/presend.php">
+    <form id="send_sms" name="send_sms" method="post" action="../service/check_data.php">
         <table>
             <tr>
                 <td class="r_ali">
@@ -21,8 +21,8 @@
                 </td>
                 <td></td>
                 <td>
-                    <input type="radio" name="type" value="phone" onchange="mode_change('ph');"> phone number
-                    <input type="radio" name="type" value="group" onchange="mode_change('gr');" checked > user group
+                    <input type="radio" name="scr_type" value="phone" onchange="mode_change('ph');"> phone number
+                <input type="radio" name="scr_type" value="group" onchange="mode_change('gr');" checked > user group
 
                 </td>
             </tr>
@@ -142,6 +142,7 @@
                 <td></td>
                 <td>
                     <select name="s_name" id="s_name">
+                        <option value="SMS">SMS</option>
                         <option value="Haadthip">Haadthip</option>
                         <option value="HaadthipPro">HaadthipPro</option>
                     </select>
