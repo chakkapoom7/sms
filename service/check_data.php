@@ -10,9 +10,9 @@ date_default_timezone_set('Asia/Bangkok');
 
 include_once "connect/connect.php";
 
-echo "<pre>";
-print_r($_REQUEST);
-echo "</pre>";
+// echo "<pre>";
+// print_r($_REQUEST);
+// echo "</pre>";
 
 // exit();
 
@@ -29,66 +29,59 @@ $rep_feild3 = @$_REQUEST['rep_feild3'];
 $type = @$_REQUEST['type'];
 $s_name = @$_REQUEST['s_name'];
 
+$my_payload = array(
+    "scr_type" => $scr_type,
+    "phone" => $phone,
+    "group" => $group,
+    "message" => $message,
+    "rep_str1" => $rep_str1,
+    "rep_feild1" => $rep_feild1,
+    "rep_str2" => $rep_str2,
+    "rep_feild2" => $rep_feild2,
+    "rep_str3" => $rep_str3,
+    "rep_feild3" => $rep_feild3,
+    "type" => $type,
+    "s_name" => $s_name,
+);
+
 if ($type == 'now') { //================================================================== send
 
-    echo "yeahhh! ";    
+    echo "now!  ";
 
-    //post json to sms service
+//     //post json to sms service
+    $service_url = 'http://localhost/sms/service/presend.php';
+    $curl = curl_init($service_url);
+    $curl_post_data = $my_payload;
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($curl, CURLOPT_POST, true);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, $curl_post_data);
+    $curl_response = curl_exec($curl);
+    if ($curl_response === false) {
+        $info = curl_getinfo($curl);
+        curl_close($curl);
+        die('error occured during curl exec. Additioanl info: ' . var_export($info));
+    }
+    curl_close($curl);
+    $decoded = json_decode($curl_response);
+    if (isset($decoded->response->status) && $decoded->response->status == 'ERROR') {
+        die('error occured: ' . $decoded->response->errormessage);
+    }
 
-    //API URL
-    $url = 'presend.php';
-
-    //create a new cURL resource
-    $ch = curl_init($url);
-
-    //setup request to send json via POST
-    $data = array(
-        'u' => @$_SESSION['user'],
-        'p' => @$_SESSION['passw'],
-        'message' => $message,
-        'phone' => $phone,
-        'group' => $group,
-        'dystr1' => $rep_str1,
-        'dystr2' => $rep_str2,
-        'dystr3' => $rep_str3,
-        'dyfeild1' => $rep_feild1,
-        'dyfeild2' => $rep_feild2,
-        'dyfeild3' => $rep_feild3,
-        's_name' => $s_name
-    );
-
-    
+    echo 'response ok!';
+    // var_export($decoded->response);
+    // echo $curl_response;
 
     echo "<pre>";
-    print_r($data);
+    print_r($decoded);
+    echo "asdasd".@$decoded->message;
     echo "</pre>";
-
-
-    //API URL
-    $url = "presend.php";
-
-    // $data = array("id" => $id, "name" => $name, "address" => $address, "phone" => $phone);
-    $ch = curl_init($url);
-# Setup request to send json via POST.
-    $payload = json_encode(array("customer" => $data));
-
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
-    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
-# Return response instead of printing.
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-# Send request.
-    $result = curl_exec($ch);
-    curl_close($ch);
-# Print response.
-    echo "<pre>" . $result . "</pre>";
 
 } else { //============================================================================== keep
 
     //keep data to db
 
     // echo "<br>==========================================================================================================================<br>";
-    echo "keep";
+    // echo "keep";
     $q = "
 INSERT INTO tbl_sms (
     number,
@@ -127,23 +120,22 @@ VALUES
         \"\",
         \"\"
     );
-
 ";
 
     // echo "<pre>".$q."</pre>" ;
     // echo "<br>==========================================================================================================================<br>";
 
     $result = $mysqli->query($q); // query
-    $total = @$result->num_rows; // count row
+    // $total = @$result->num_rows; // count row
     $mysqli->close();
 
-    if (@$total == 0) {
+    if (!$result) {
         // echo "ไม่พบข้อมูล";
         echo json_encode(array(
             'keep_result' => 'fail',
         ));
         exit();
-    } elseif (@$total == 1) {
+    } elseif ($result) {
         // echo "เก็บลงคิวเรียบร้อย";
         echo json_encode(array(
             'keep_result' => 'success',
