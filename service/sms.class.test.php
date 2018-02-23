@@ -1,7 +1,7 @@
 <?php
 class sms{
-	function send_sms($username,$password,$msisdn,$message,$sender = "THAIBULKSMS",$ScheduledDelivery = "",$force = "standard"){
-		$url = "https://secure.thaibulksms.com/sms_api_test.php";
+	public static function send_sms($username,$password,$msisdn,$message,$sender = "THAIBULKSMS",$ScheduledDelivery = "",$force = "standard"){
+		$url = "https://secure.thaibulksms.com/sms_api_test.php"; //============================================================================================== api url
 		if(extension_loaded('curl')){
 			$data = array(
 			'username' => $username,
@@ -104,7 +104,7 @@ class sms{
 	
 	function check_credit($username,$password,$credit_type = "credit_remain"){
 		if(extension_loaded('curl')){
-			$url = "https://secure.thaibulksms.com/sms_api_test.php";
+			$url = "https://secure.thaibulksms.com/sms_api_test.php"; //============================================================================================== api url
 			$data_string = "username=$username&password=$password&tag=$credit_type";
 			
 			$agent = "ThaiBulkSMS API PHP Client";

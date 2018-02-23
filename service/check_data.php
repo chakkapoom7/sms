@@ -48,8 +48,8 @@ if ($type == 'now') { //========================================================
 
     echo "now!  ";
 
-//     //post json to sms service
-    $service_url = 'http://localhost/sms/service/presend.php';
+    //post json to sms service
+    $service_url = 'http://localhost/sms/service/smsservice.php';
     $curl = curl_init($service_url);
     $curl_post_data = $my_payload;
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -67,14 +67,16 @@ if ($type == 'now') { //========================================================
         die('error occured: ' . $decoded->response->errormessage);
     }
 
-    echo 'response ok!';
+    echo 'response ok!<b>';
+
     // var_export($decoded->response);
     // echo $curl_response;
 
     echo "<pre>";
     print_r($decoded);
-    echo "asdasd".@$decoded->message;
+    // echo "<br>redponse : ".@$decoded->message;
     echo "</pre>";
+    echo "<br>".$decoded->summary;
 
 } else { //============================================================================== keep
 
