@@ -42,6 +42,7 @@ $my_payload = array(
     "rep_feild3" => $rep_feild3,
     "type" => $type,
     "s_name" => $s_name,
+    "u"=>"zzzzz"
 );
 
 if ($type == 'now') { //================================================================== send
