@@ -29,6 +29,7 @@ $rep_feild3 = @$_REQUEST['rep_feild3'];
 $type = @$_REQUEST['type'];
 $s_name = @$_REQUEST['s_name'];
 
+
 $my_payload = array(
     "scr_type" => $scr_type,
     "phone" => $phone,
@@ -42,7 +43,8 @@ $my_payload = array(
     "rep_feild3" => $rep_feild3,
     "type" => $type,
     "s_name" => $s_name,
-    "u"=>"zzzzz"
+    "u"=>"zzzzz",
+    "p"=>"zzzzz"
 );
 
 if ($type == 'now') { //================================================================== send
@@ -71,13 +73,13 @@ if ($type == 'now') { //========================================================
     echo 'response ok!<b>';
 
     // var_export($decoded->response);
-    // echo $curl_response;
+    echo $curl_response;
 
     echo "<pre>";
     print_r($decoded);
     // echo "<br>redponse : ".@$decoded->message;
     echo "</pre>";
-    echo "<br>".$decoded->summary;
+    // echo "<br>".$decoded->summary;
 
 } else { //============================================================================== keep
 

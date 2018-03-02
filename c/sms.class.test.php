@@ -105,6 +105,7 @@ class sms{
 	public static function check_credit($username,$password,$credit_type = "credit_remain"){
 		if(extension_loaded('curl')){
 			$url = "https://secure.thaibulksms.com/sms_api_test.php"; //============================================================================================== api url
+			// $url = "https://secure.thaibulksms.com/sms_api.php";
 			$data_string = "username=$username&password=$password&tag=$credit_type";
 			
 			$agent = "ThaiBulkSMS API PHP Client";
@@ -148,22 +149,16 @@ class sms{
 			
 		// return $msg_string;
 
-		// $myresult = array();
-		// $myresult['summary'] = $msg_string;
-		// $myresult['credit'] = $credit;
+		$myresult = array();
+		$myresult['summary'] = $msg_string;
+		$myresult['credit'] = $credit;
 
 		// echo "<pre>";
 		// print_r($sms);
 		// echo "</pre>";
 		// return $msg_string;
 		// echo $result."<br>".$info."<br>";
-		// return json_encode($myresult) ;
-
-		$myresult = array();
-		$myresult['credit_summary'] = $msg_string;
-		$myresult['credit'] = $credit;
-
-		return $myresult;
+		return json_encode($myresult) ;
 	}
 	
 	function xml2array($url, $get_attributes = 1, $priority = 'tag'){

@@ -102,7 +102,7 @@ class sms{
 		return $myresult;
 	}
 	
-	public static function check_credit($username,$password,$credit_type = "credit_remain"){
+	function check_credit($username,$password,$credit_type = "credit_remain"){
 		if(extension_loaded('curl')){
 			$url = "https://secure.thaibulksms.com/sms_api_test.php"; //============================================================================================== api url
 			$data_string = "username=$username&password=$password&tag=$credit_type";
@@ -117,12 +117,10 @@ class sms{
 			$result = curl_exec ($ch);
 			$info = curl_getinfo($ch);
 			curl_close ($ch);
-			$credit=-1;
-
+			
 			if($info['http_code'] == 200){
 				if(is_numeric($result)){
 					$msg_string = "จำนวนเครดิตคงเหลือ ".$result." เครดิต";
-					$credit = $result;
 				}else{
 					$msg_string = $result;
 				}
@@ -136,10 +134,8 @@ class sms{
 			$result = $this->check_credit_fsock($username,$password,$credit_type);
 			if(is_numeric($result)){
 				$msg_string = "จำนวนเครดิตคงเหลือ ".$result." เครดิต";
-				$credit = $result;
 			}else{
 				$msg_string = $result;
-				$credit = $result;
 			}
 			
 		}else{
@@ -148,22 +144,15 @@ class sms{
 			
 		// return $msg_string;
 
-		// $myresult = array();
-		// $myresult['summary'] = $msg_string;
-		// $myresult['credit'] = $credit;
+		$myresult = array();
+		$myresult['summary'] = $msg_string;
 
 		// echo "<pre>";
 		// print_r($sms);
 		// echo "</pre>";
 		// return $msg_string;
 		// echo $result."<br>".$info."<br>";
-		// return json_encode($myresult) ;
-
-		$myresult = array();
-		$myresult['credit_summary'] = $msg_string;
-		$myresult['credit'] = $credit;
-
-		return $myresult;
+		return json_encode($myresult) ;
 	}
 	
 	function xml2array($url, $get_attributes = 1, $priority = 'tag'){

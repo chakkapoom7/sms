@@ -1,7 +1,7 @@
 <?php
 class sms{
-	public static function send_sms($username,$password,$msisdn,$message,$sender = "THAIBULKSMS",$ScheduledDelivery = "",$force = "standard"){
-		$url = "https://secure.thaibulksms.com/sms_api_test.php"; //============================================================================================== api url
+	function send_sms($username,$password,$msisdn,$message,$sender = "THAIBULKSMS",$ScheduledDelivery = "",$force = "standard"){
+		$url = "https://secure.thaibulksms.com/sms_api.php";
 		if(extension_loaded('curl')){
 			$data = array(
 			'username' => $username,
@@ -26,7 +26,7 @@ class sms{
 			
 			if($code['http_code'] == 200){
 				if(function_exists('simplexml_load_string')) {
-					$sms = new SimpleXMLElement($xml_result); //============================================================================================
+					$sms = new SimpleXMLElement($xml_result);
 					$count = count($sms->QUEUE);
 					if($count > 0){
 						$count_pass = 0;
@@ -91,20 +91,12 @@ class sms{
 				$msg_string = "cURL OR fsockopen is not enabled";
 			}
 		}
-
-		$myresult = json_decode(json_encode((array)$sms), TRUE);
-		$myresult['summary'] = $msg_string;
-
-		// echo "<pre>";
-		// print_r($sms);
-		// echo "</pre>";
-		// return $msg_string;
-		return $myresult;
+		return $msg_string;
 	}
 	
-	public static function check_credit($username,$password,$credit_type = "credit_remain"){
+	function check_credit($username,$password,$credit_type = "credit_remain"){
 		if(extension_loaded('curl')){
-			$url = "https://secure.thaibulksms.com/sms_api_test.php"; //============================================================================================== api url
+			$url = "https://secure.thaibulksms.com/sms_api.php";
 			$data_string = "username=$username&password=$password&tag=$credit_type";
 			
 			$agent = "ThaiBulkSMS API PHP Client";
@@ -117,12 +109,10 @@ class sms{
 			$result = curl_exec ($ch);
 			$info = curl_getinfo($ch);
 			curl_close ($ch);
-			$credit=-1;
-
+			
 			if($info['http_code'] == 200){
 				if(is_numeric($result)){
 					$msg_string = "จำนวนเครดิตคงเหลือ ".$result." เครดิต";
-					$credit = $result;
 				}else{
 					$msg_string = $result;
 				}
@@ -136,34 +126,15 @@ class sms{
 			$result = $this->check_credit_fsock($username,$password,$credit_type);
 			if(is_numeric($result)){
 				$msg_string = "จำนวนเครดิตคงเหลือ ".$result." เครดิต";
-				$credit = $result;
 			}else{
 				$msg_string = $result;
-				$credit = $result;
 			}
 			
 		}else{
 			$msg_string = "cURL OR fsockopen is not enabled";
 		}
 			
-		// return $msg_string;
-
-		// $myresult = array();
-		// $myresult['summary'] = $msg_string;
-		// $myresult['credit'] = $credit;
-
-		// echo "<pre>";
-		// print_r($sms);
-		// echo "</pre>";
-		// return $msg_string;
-		// echo $result."<br>".$info."<br>";
-		// return json_encode($myresult) ;
-
-		$myresult = array();
-		$myresult['credit_summary'] = $msg_string;
-		$myresult['credit'] = $credit;
-
-		return $myresult;
+		return $msg_string;
 	}
 	
 	function xml2array($url, $get_attributes = 1, $priority = 'tag'){
@@ -432,6 +403,5 @@ class sms{
 		unset($tmp);
 		return $str;
 	}
-
 }
 ?>

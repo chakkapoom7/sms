@@ -10,7 +10,6 @@
 	
 	print_r( json_decode($result) ) ;
 
-
 	/*list($result,$code) = $result;
 	
 	if($code['http_code'] == 200){

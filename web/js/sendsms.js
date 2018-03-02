@@ -52,13 +52,14 @@ function mode_change(mode) {
     if(mode == 'ph'){
         $("#group_input").hide();
         $("#phone_input").show();
+        $('#group').val('');
         
     }else if(mode == 'gr'){
         $("#phone_input").hide();
         $("#group_input").show();
+        $('#phone').val('');
     }
 }
-
 
 
 
