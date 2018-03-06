@@ -9,7 +9,7 @@ ini_set('display_startup_errors', true);
 // echo json_encode($_REQUEST);
 
 include "sms.class.test.php";
-include "get_des_info.class.test.php";
+include "get_info.class.php";
 include_once "connect/connect.php";
 
 // $provider_username = "0873578044";
@@ -27,30 +27,9 @@ $ScheduledDelivery = "";
 $user_sender = @$_REQUEST['u'];
 $pass_sender = @$_REQUEST['p'];
 $lang = "th";
-$sms_user_check = '
-SELECT
-	user_id,
-	`group`,
-	system,
-	env,
-	current_usage,
-	maximum_quota,
-	valid_fr,
-	valid_to,
-	`status`
-FROM
-	tbl_sms_user
-WHERE
-	user_id = "' . $user_sender . '"
-AND `password` = "' . $pass_sender . '"
-';
 
-$user_list_query = '
-SELECT
-*
-FROM
-	vw_userinfo
-';
+
+
 
 function return_result($message)
 {
@@ -58,19 +37,13 @@ function return_result($message)
     exit();
 }
 
+
+
 //=================================================================================================
-//query user data
-$result = $mysqli->query($sms_user_check); // query
-$total = @$result->num_rows; // count row
-$mysqli->close();
-if (@$total == 0) {
-    return_result("username / password ไม่ถูกต้อง.");
-    // return_result("u : ".$user_sender." p : ".$pass_sender);
-}
-$rs = $result->fetch_object();
-$current_usage = $rs->current_usage;
-$maximum_quota = $rs->maximum_quota;
-$status = $rs->status;
+$user_info = get_info::get_group_info($user_sender,$pass_sender);
+$current_usage = $user_info['current_usage'];
+$maximum_quota = $user_info['maximum_quota'];
+$status = $user_info['status'];
 //=================================================================================================
 
 
@@ -87,7 +60,7 @@ if (!preg_match('/[^A-Za-z0-9]/', $message)) // '/[^a-z\d]/i' should also work.
 $credit_result = sms::check_credit("0873578044","956983",$forceremain);
 
 
-
+$user_table = get_info::get_group_info($_REQUEST['group']);
 
 
 $message_lent = strlen($message);
@@ -116,6 +89,13 @@ $result = sms::send_sms($provider_username, $provider_password, $msisdn, $messag
 // // echo "</pre>";
 
 // echo "<pre>",json_encode($result, JSON_PRETTY_PRINT),"</pre>";
-echo json_encode(array_merge($credit_result,$result));
+
+$last_resault = array_merge($credit_result,$result);
+
+$last_resault['group'] = $_REQUEST['group'];
+
+$last_resault['grouplist'] = $user_table;
+
+echo json_encode($last_resault);
 
 
