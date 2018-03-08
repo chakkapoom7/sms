@@ -49,7 +49,7 @@ $my_payload = array(
 
 if ($type == 'now') { //================================================================== send
 
-    echo "now!  ";
+    // echo "now!  ";
 
     //post json to sms service
     $service_url = 'http://localhost/sms/service/smsservice.php';
@@ -70,15 +70,15 @@ if ($type == 'now') { //========================================================
         die('error occured: ' . $decoded->response->errormessage);
     }
 
-    echo 'response ok!<b>';
+    // echo 'response ok!<b>';
 
     // var_export($decoded->response);
     echo $curl_response;
 
-    echo "<pre>";
-    print_r($decoded);
-    // echo "<br>redponse : ".@$decoded->message;
-    echo "</pre>";
+    // echo "<pre>";
+    // print_r($decoded);
+    // // echo "<br>redponse : ".@$decoded->message;
+    // echo "</pre>";
     // echo "<br>".$decoded->summary;
 
 } else { //============================================================================== keep

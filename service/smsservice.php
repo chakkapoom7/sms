@@ -30,22 +30,12 @@ $lang = "th";
 
 
 
-
-function return_result($message)
-{
-    echo json_encode(array("summary" => $message));
-    exit();
-}
-
-
-
 //=================================================================================================
-$user_info = get_info::get_group_info($user_sender,$pass_sender);
-$current_usage = $user_info['current_usage'];
-$maximum_quota = $user_info['maximum_quota'];
-$status = $user_info['status'];
+$user_info = get_info::get_user_info($user_sender,$pass_sender);
+$current_usage = @$user_info['current_usage'];
+$maximum_quota = @$user_info['maximum_quota'];
+$status = @$user_info['status'];
 //=================================================================================================
-
 
 
 //=================================================================================================
@@ -60,29 +50,30 @@ if (!preg_match('/[^A-Za-z0-9]/', $message)) // '/[^a-z\d]/i' should also work.
 $credit_result = sms::check_credit("0873578044","956983",$forceremain);
 
 
-$user_table = get_info::get_group_info($_REQUEST['group']);
+$user_table = get_info::get_group_info(@$_REQUEST['group']);
 
 
 $message_lent = strlen($message);
 
-// return_result("message lent : ".$message_lent);
-
-
+// get_info::return_result("message lent : ".$message_lent);
 
 $credit_use=0;
 //=================================================================================================
 
+
 if ($status != "active") {
-    return_result("บัญชีของคุณไม่มีสิทธิ์ใช้งาน โปรดติดต่อทีม IT");
+    get_info::return_result("บัญชีของคุณไม่มีสิทธิ์ใช้งาน โปรดติดต่อทีม IT");
 }
 
 if ($current_usage + $credit_use > $maximum_quota) {
-    return_result("คุณมีเครดิต ไม่เพียงพอสำหรับการส่ง");
+    get_info::return_result("คุณมีเครดิต ไม่เพียงพอสำหรับการส่ง");
 }
+
 
 $type = @$_REQUEST['type'];
 
 $result = sms::send_sms($provider_username, $provider_password, $msisdn, $message, $sender, $ScheduledDelivery, $force);
+
 
 // // echo "<pre>";
 // // print_r($result);

@@ -1,13 +1,12 @@
 <?php
 class get_info
 {
-
     public static function get_group_info($group)
     {
         include "connect/connect.php";
         $return_data = array();
         $q = '
-            SELECT * FROM vw_userinfo WHERE User_group = "'.$group.'"
+            SELECT * FROM vw_userinfo WHERE User_group = "' . $group . '"
         ';
         $result = $mysqli->query($q); // query
         $total = @$result->num_rows; // count row
@@ -19,23 +18,22 @@ class get_info
         while ($rs = $result->fetch_object()) {
 
             $tempdata = array(
-                'Userid'=>$rs->Userid,
-                'User_group'=>$rs->User_group,
-                'firstname'=>$rs->firstname,
-                'lastname'=>$rs->lastname,
-                'phone'=>$rs->phone
+                'Userid' => $rs->Userid,
+                'User_group' => $rs->User_group,
+                'firstname' => $rs->firstname,
+                'lastname' => $rs->lastname,
+                'phone' => $rs->phone,
             );
-        
-            array_push($return_data,$tempdata);
-        
+
+            array_push($return_data, $tempdata);
+
             unset($tempdata);
-        
+
         }
         return $return_data;
     }
 
-
-    public static function get_user_info($user_sender,$pass_sender)
+    public static function get_user_info($user_sender, $pass_sender)
     {
         include "connect/connect.php";
         $return_data = array();
@@ -65,11 +63,17 @@ class get_info
         }
         $rs = $result->fetch_object();
 
-        $return_data['current_usage']=$rs->current_usage;
-        $return_data['maximum_quota']=$rs->maximum_quota;
-        $return_data['status']=$rs->status;
-        
+        $return_data['current_usage'] = $rs->current_usage;
+        $return_data['maximum_quota'] = $rs->maximum_quota;
+        $return_data['status'] = $rs->status;
+
         return $return_data;
+    }
+
+    public static function return_result($message)
+    {
+        echo json_encode(array("summary" => $message));
+        exit();
     }
 
 }
